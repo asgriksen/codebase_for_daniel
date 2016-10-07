@@ -1,0 +1,62 @@
+<div class="create-add-wrapper" ng-controller="adWizardGoalController">
+  <!-- cards row -->
+  <div class="row">
+    <h2>Set your goal</h2>
+    <!-- col -->
+    <div class="card-container col-sm-4">
+      <div class="card">
+        <div class="front">
+          <div class="create-add-inner-wrapper">
+            <button ng-click="onNextStep('GET_VISITORS')" class="fa fa-bullseye fa-ads"></button>
+            <h3>Get Visitors</h3>
+          </div>
+        </div>
+        <div class="back padT30">
+          <h3>Get Visitors</h3>
+          <p>Increase amount of visitors on your website. <br/>
+          You can find new customers, reengage your current customers <br/>
+          and get more conversions.</p>
+          <button ng-click="onNextStep('GET_VISITORS')" class="btn btn-primary mt-20">Get Visitors</button>
+        </div>
+      </div>
+    </div>
+    <!-- /col -->
+    
+    <!-- col -->
+    <div class="card-container col-sm-4">
+      <div class="card">
+        <div class="front">
+          <div class="create-add-inner-wrapper">
+            <button ng-click="onNextStep('BOOST_POST')" class="fa fa-thumbs-o-up fa-ads"></button>
+            <h3>Boost Post</h3>
+          </div>
+        </div>
+        <div class="back padT30">
+          <h3>Boost Post</h3>
+          <p>Make existing post on your page to reach more people. <br/>You can measure revenue you gain and AB test your post on <br/> various segment of people.</p>
+          <button ng-click="onNextStep('BOOST_POST')" class="btn btn-primary mt-20">Boost Post</button>
+        </div>
+      </div>
+    </div>
+    <!-- /col -->
+
+    <!-- col -->
+    <div class="card-container col-sm-4">
+      <div class="card">
+        <div class="front">
+          <div class="create-add-inner-wrapper">
+            <button ng-click="onNextStep('PRODUCT_ADS')" class="fa fa-cart-arrow-down fa-ads"></button>
+            <h3>Dynamic Product Ads</h3>
+          </div>
+        </div>
+        <div class="back padT30">
+          <h3>Dynamic Product Ads</h3>
+          <p>Dynamic Ads allow advertisers to<br/> create Link Ads that are rendered and targeted based<br/> on a set of products.</p>
+          <button ng-click="onNextStep('PRODUCT_ADS')" class="btn btn-primary mt-20">Dynamic Product Ads</button>
+        </div>
+      </div>
+    </div>
+    <!-- /col -->
+  </div>
+  <!-- /row -->
+</div>

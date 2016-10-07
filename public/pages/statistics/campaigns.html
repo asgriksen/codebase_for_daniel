@@ -1,0 +1,87 @@
+<section ng-controller="statisticsCampaignController">
+  <!-- tile -->
+  <section class="tile">
+    <div class="row clicks-wrap">
+      <div class="col-sm-4 padR0">
+        <metrics-select model="filters.graph.field1" options="METRICS_FIELDS"></metrics-select>
+      </div>
+      <div class="col-sm-1 text-center" style="padding: 0;">
+        <p>VS</p>
+      </div>
+      <div class="col-sm-4 padL0">
+        <metrics-select model="filters.graph.field2" options="METRICS_FIELDS"></metrics-select>
+      </div>
+    </div>
+    <!-- tile header -->
+
+    <div class="tile-header dvd dvd-btm">
+      <h1 class="custom-font">&nbsp; </h1>
+      <ul class="controls">
+        <li>
+          <a href="javascript:;" daterangepicker="{}" date-begin="filters.search.startDate" date-end="filters.search.endDate">
+            <span>{{filters.search.startDate | date: 'MMMM d, yyyy'}} - {{filters.search.endDate | date: 'MMMM d, yyyy'}}</span>&nbsp;&nbsp;<i class="fa fa-angle-down"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- /tile header -->
+    <!-- tile body -->
+    <div class="tile-body">
+      <flot dataset="graphdata.dataset" options="graphdata.options" height="250px"></flot>
+    </div>
+    <!-- /tile body -->
+
+  </section>
+  <!-- /tile -->
+
+  <!-- tile -->
+  <section class="tile">
+    <!-- tile header -->
+    <div class="tile-header dvd dvd-btm">
+      <ul class="list-inline mb-0">
+        <li><h1 class="custom-font">{{checkedItems.length}} Items Selected</h1> </li>
+        <li>
+          <select class="form-control">
+            <option>Status</option>
+          </select>
+        </li>
+        <li>
+          <metrics-select model="checkedItemStatus" options="ADS_STATUS"></metrics-select>
+        </li>
+        <li>
+          <i class="fa fa-check cursor" ng-click="onApplySelected()"></i>
+        </li>
+        <li>
+          <i class="fa fa-times cursor" ng-click="onClearSelected()"></i>
+        </li>
+      </ul>
+      <ul class="controls">
+        <li><a href="" ng-click="randomStacked()">Automatic Rule for this Filter</a></li>
+        <li>
+          <div>
+            <a href="javascript:void(0);" ng-click="onTableSettings()" style=" color: #95a2a9;display: inline-block;line-height: 50px;padding: 0 15px;position: relative;"><fa name="cog"></fa></a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- /tile header -->  
+    <!-- tile body -->
+    <div class="tile-body" style="padding: 0;">
+      <div class="row">
+        <div class="col-lg-12 padR0 padL0">
+          <!-- tile -->
+          <section class="tile">
+            <!-- tile body -->
+            <div class="tile-body padT0" collapse="isCollapsed">
+              <metrics-data-table ng-dataset="tabledata" ng-filter="filters.table" ng-checked-rows="checkedItems"></metrics-data-table>
+            </div>
+            <!-- /tile body -->
+          </section>
+          <!-- /tile -->
+        </div>
+      </div>
+    </div>
+    <!-- /tile body -->
+  </section>
+  <!-- /tile --> 
+</section>

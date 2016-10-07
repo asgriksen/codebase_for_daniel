@@ -1,0 +1,55 @@
+<table class="display table mb-0 table-ad" id="campaigns-table">
+  <thead>
+  <tr>
+      <th></th>
+      <th ng-repeat="field in dataset.fields">
+          {{field.label}}
+          <i class="fa "
+      </th>
+  </tr>
+  <tr>
+
+    <th style="width:20px; margin-top: 10px;padding-top: 34px;vertical-align: middle;width: 20px;">
+      <label class="checkbox checkbox-custom checkbox-custom-sm m-0"><input type="checkbox" ng-model="isCheckedAll" ng-click="onCheckAllClick()"><i></i></label>
+    </th>
+
+    <th ng-repeat="field in dataset.fields">
+      <!-- STRING -->
+      <input type="text" class="form-control" placeholder="search" ng-if="field.type == 'STRING'" ng-model="filter[field.field].value" />
+      <!-- DATE -->
+      <div ng-if="field.type == 'DATE'" style="width:120px;">
+        <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="filter[field.field].value" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+          </span>
+        </p>
+      </div>
+      <!-- STATUS -->
+      <metrics-select model="filter[field.field].value" options="ADS_STATUS" ng-if="field.type == 'STATUS'"></metrics-select>
+      <!-- METRIC -->
+      <div ng-if="field.type == 'METRIC'" class="top-filters">
+        <metric-comparison-select model="filter[field.field].operator"></metric-comparison-select>
+        <input class="form-control" type="text" ng-model="filter[field.field].value" />
+      </div>
+    </th>
+  </tr>
+  <tr class="success">
+    <td>&nbsp;</td>
+    <td ng-repeat="field in dataset.fields">
+      <span ng-if="field.field == 'name'" class="text-left bold">Total</span>
+      <span ng-if="field.type == 'METRIC'">{{field.renderer(total[field.field])}}</span>
+    </td>
+  </tr> 
+  </thead>
+  <tbody ng-repeat="row in data">
+    <tr>
+      <td>
+        <label class="checkbox checkbox-custom checkbox-custom-sm m-0"><input type="checkbox" checklist-model="checkedRows" checklist-value="row" checklist-change="onCheckRow()"><i></i></label>
+      </td>
+      <td ng-repeat="field in dataset.fields">
+        {{field.renderer(row[field.field])}}
+      </div>
+    </tr>
+  </tbody>
+</table>

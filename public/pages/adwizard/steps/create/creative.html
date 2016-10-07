@@ -1,0 +1,510 @@
+<tab id="creative" active="steps.step1" class="active" ng-controller="adWizardCreateCreativeController">
+    <tab-heading>
+        Creative
+        <span class="badge badge-default pull-right wizard-step">1</span>
+    </tab-heading>
+    <div class="row">
+        <div class="col-sm-9">
+            <select class="form-control mb-10" ng-model="filters.cart" ng-options="c.id as c.name for c in carts">
+                <option value="">Select a product feed</option>
+            </select>
+        </div>
+        <div class="col-sm-3">
+            <a href="javascript:void(0);" ng-click="showAddFeed = !showAddFeed"
+               class="btn btn-default add-new-feed-btn">
+                <i class="fa fa-plus"></i>
+                Add a new feed
+            </a>
+        </div>
+    </div>
+    <div class="row mb-10 add-new-feed-wrapper" ng-show="showAddFeed">
+        <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="Name feed" ng-model="newFeed.name">
+        </div>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="Enter url of feed" ng-model="newFeed.url">
+        </div>
+        <div class="col-sm-2 text-right">
+            <button type="button" class="btn btn-default" ng-click="saveFeed()">Save feed</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <select class="form-control mb-10" ng-model="filters.topCategoryId"
+                    ng-options="cat.id as cat.name for cat in topCategories | filter:{category_id:null}">
+                <option value="">Select a product category</option>
+            </select>
+        </div>
+    </div>
+    <div class="select-category-wrapper">
+        <div class="category-bordered" ng-show="filters.topCategoryId && topCategory">
+            <div class="row">
+                <div class="col-sm-4">Category Name</div>
+                <div class="col-sm-2 text-right">Products</div>
+                <div class="col-sm-2 text-right">Conversions</div>
+                <div class="col-sm-2 text-right">Revenues</div>
+                <div class="col-sm-2 text-right">Action</div>
+            </div>
+            <script type="text/ng-template" id="category_item_renderer.html">
+                <div class="select-category-inner">
+                    <div class="row" ng-class="{selected:filters.categoryId==category.id}">
+                        <div class="col-sm-4"><i class="fa fa-plus-circle"></i> {{category.name}}</div>
+                        <div class="col-sm-2 text-right"> {{category.products}}</div>
+                        <div class="col-sm-2 text-right"> {{category.conversions}}</div>
+                        <div class="col-sm-2 text-right"> {{category.revenues | money}}</div>
+                        <div class="col-sm-2 text-right">
+                            <a href="javascript:void(0);" ng-click="filters.categoryId=category.id">select this category</a>
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-unstyled category-name" ng-if="category.categories && category.categories.length">
+                    <li ng-repeat="category in category.categories" ng-include="'category_item_renderer.html'"></li>
+                </ul>
+            </script>
+            <ul class="list-unstyled category-name">
+                <li ng-repeat="category in [topCategory]" ng-include="'category_item_renderer.html'"></li>
+            </ul>
+        </div>
+        <p class="revenue-filtering" ng-show="filters.topCategoryId && topCategory">Converions and revenues filtering:
+            <button class="btn" ng-class="{'btn-primary':filters.convAndRev==f.value}"
+                    ng-click="filters.convAndRev=f.value" ng-repeat="f in REVENUE_FILTER">{{f.value | titleCase}}
+            </button>
+            <i class="fa fa-question-circle"></i></p>
+        <p class="update-data" ng-show="filters.cart">
+            <a href="javascript:void(0);" ng-click="updateFeedData()">Update feed data now </a> (last update: Sep 9,
+            12:45)
+            <i class="fa fa-question-circle"></i>
+            <a href="javascript:void(0);" class="pull-right" ng-click="deleteFeed()">Delete feed</a>
+        </p>
+    </div>
+    <div class="creative-tabs">
+        <accordion close-others="oneAtATime" ng-init="status.isFirstOpen = true; status.isSecondOpen = true; status.isThirdOpen = true;">
+            <accordion-group is-open="status.isFirstOpen" class="bold-20">
+                <accordion-heading>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            Right Hand Side Ads
+                        </div>
+                        <div class="col-xs-2 ads-count">
+                            <span>{{adSet.right_ads.ads.length | plural:'ad'}}</span>
+                        </div>
+                        <div class="col-xs-4 text-right ads-availabilty">
+                            <green-checkbox ng-model="adData.right_ads.show_desktop" label="Desktop"></green-checkbox>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="row right-side-ad">
+                    <div class="col-sm-3 right-ad-box" ng-repeat="ad in adData.right_ads.ads">
+                        <div class="created-ad-wrapper">
+                            <div class="relative">
+                                <div flow-init="{singleFile:true}"
+                                     flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+                                     flow-files-submitted="$flow.upload()"
+                                     flow-file-success="ad.image_url = $message">
+                                    <h3>
+                                        <div class="created-ad-body" ng-show="!$flow.files.length">
+                                            <img src="http://ahextechnologies.com/roi/images/samg-photo-ad.jpg"
+                                                 class="img-responsive" alt=""/>
+                                        </div>
+                                        <div class="created-ad-body" ng-show="$flow.files.length">
+                                            <img flow-img="$flow.files[0]"
+                                                 src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image">
+                                        </div>
+                                        <div class="img-upload-wrapper rhs-img-upload">
+                                            <span class="btn btn-primary" ng-show="!$flow.files.length"
+                                                  flow-btn="">Select image<input type="file"
+                                                                                 style="visibility: hidden; position: absolute;"></span>
+                                            <span class="btn btn-info" ng-show="$flow.files.length"
+                                                  flow-btn="">Change<input type="file"
+                                                                           style="visibility: hidden; position: absolute;"></span>
+                                            <span class="btn btn-danger" ng-show="$flow.files.length"
+                                                  ng-click="$flow.cancel()">Remove</span>
+                                        </div>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="created-ad-head">
+                                <div class="sponsor-desc">
+                                    <p editable-text="ad.name"><strong>{{ ad.name || "Name" }}</strong></p>
+                                </div>
+                                <p class="f-11" editable-text="ad.description">{{ ad.description || "Description" }}</p>
+                                <p editable-text="ad.link"><strong>{{ ad.link || "Link" }}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 right-ad-box">
+                        <div class="ad-wrapper">
+                            <div class="create-ad">
+                                <a href="javascript:void(0);" ng-click="createAdClicked('right')"><i class="fa fa-plus-circle"></i></a>
+
+                                <p>Create Ad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row right-side-ad">
+                    <div class="col-sm-3">
+                        <div class="choose-product text-center mt-10">
+                            <a href="javascript:void(0);" ng-click="chooseProductClicked()" class="btn btn-default">Choose Product</a>
+                            <span class="dropdown inline-block">
+                                <a class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-gear"></i></a>
+                                <ul class="dropdown-menu" aria-labelledby="chooseProduct">
+                                    <li><a href="javascript:void(0);">Distribute image to all ads </a></li>
+                                    <li><a href="javascript:void(0);">Distribute title to all ads</a> </li>
+                                    <li><a href="javascript:void(0);">Distribute url to all ads </a> </li>
+                                    <li><a href="javascript:void(0);">Distribute description to all ads </a> </li>
+                                </ul>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+            <accordion-group is-open="status.isSecondOpen" class="bold-20">
+                <accordion-heading>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            News Feed Ads
+                        </div>
+                        <div class="col-xs-2 ads-count">
+                            <span>{{adSet.news_ads.ads.length | plural:'ad'}}</span>
+                        </div>
+                        <div class="col-xs-4 text-right ads-availabilty">
+                            <green-checkbox class="mr-10" ng-model="adData.news_ads.show_mobile" label="Mobile"></green-checkbox>
+                            <green-checkbox ng-model="adData.news_ads.show_desktop" label="Desktop"></green-checkbox>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="row">
+                    <div class="col-sm-4 feed-ad-wrapper" ng-repeat="ad in adData.news_ads.ads">
+                        <div class="created-ad-wrapper">
+                            <div class="created-ad-head">
+                                <div class="sponsor-desc">
+                                    <img ng-src="{{ad.profile_image_url || 'http://ahextechnologies.com/roi/images/samg-ap-profile.png'}}" class="img-responsive" alt=""/>
+                                    <div class="dropdown">
+                                        <button id="news-feed-ads-name" class="btn btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><p><strong>{{ad.name || 'Select Facebook Page'}}</strong></p></button>
+                                        <ul class="dropdown-menu" aria-labelledby="news-feed-ads-name">
+                                            <li ng-repeat="fad in facebookPages"><a href="javascript:void(0);" ng-click="facebookPageSelected(ad, fad)">{{fad.name}}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p editable-text="ad.description">{{ ad.description || "Description" }}</p>
+                                <p editable-text="ad.link"><strong>{{ ad.link || "Link" }}</strong></p>
+                            </div>
+                            <div class="created-ad-body">
+                                <div class="relative">
+                                    <div flow-init="{singleFile:true}"
+                                         flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+                                         flow-files-submitted="$flow.upload()"
+                                         flow-file-success="ad.image_url = $message">
+                                        <h3>
+                                            <div class="created-ad-body" ng-show="!$flow.files.length">
+                                                <img src="http://ahextechnologies.com/roi/images/samg-photo-ad.jpg"
+                                                     class="img-responsive news-feed-img" alt=""/>
+                                            </div>
+                                            <div class="created-ad-body" ng-show="$flow.files.length">
+                                                <img flow-img="$flow.files[0]" class="news-feed-img"
+                                                     src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image">
+                                            </div>
+                                            <div class="img-upload-wrapper">
+                                                <span class="btn btn-primary" ng-show="!$flow.files.length"
+                                                      flow-btn="">Select image<input type="file"
+                                                                                     style="visibility: hidden; position: absolute;"></span>
+                                                <span class="btn btn-info" ng-show="$flow.files.length" flow-btn="">Change<input
+                                                        type="file"
+                                                        style="visibility: hidden; position: absolute;"></span>
+                                                <span class="btn btn-danger" ng-show="$flow.files.length"
+                                                      ng-click="$flow.cancel()">Remove</span>
+                                            </div>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="ad-wrapper">
+                            <div class="create-ad">
+                                <a href="javascript:void(0);" ng-click="createAdClicked('news')"><i class="fa fa-plus-circle"></i></a>
+
+                                <p>Create Ad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+            <accordion-group is-open="status.isThirdOpen" class="bold-20">
+                <accordion-heading>
+                    <div class="row multi-ad-wrapper">
+                        <div class="col-xs-6">
+                            Multiple Product Ads
+                        </div>
+                        <div class="col-xs-2 ads-count">
+                            <span>{{adSet.multi_products_ads.ads.length | plural:'ad'}}</span>
+                        </div>
+                        <div class="col-xs-4 text-right ads-availabilty">
+                            <green-checkbox class="mr-10" ng-model="adData.multi_products_ads.show_mobile" label="Mobile"></green-checkbox>
+                            <green-checkbox ng-model="adData.multi_products_ads.show_desktop" label="Desktop"></green-checkbox>
+                        </div>
+                    </div>
+                </accordion-heading>
+                <div class="row product-add-wrapper">
+                    <div class="col-sm-4">
+                        <div class="add-form-wrapper">
+                            <form class="form-horizontal ng-pristine ng-valid">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        Connected Page
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" ng-model="facebookPage" ng-options="fad.name for fad in facebookPages" ng-change="facebookPageSelected(currentAd, facebookPage)">
+                                            <option value="">Select a product feed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        Text
+                                    </label>
+                                    <div class="col-sm-7">
+                                        <textarea class="form-control" ng-model="currentAd.description" rows="3" placeholder="Enter text that is clearly tells people about what you're promoting"></textarea>
+                                        <span class="btn btn-primary counter">120</span>
+                                    </div>
+                                    <div class="col-sm-2 text-right padL0">
+                                        <div class="dropdown">
+                                            <button class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-files-o"></i></button>
+                                            <ul class="dropdown-menu" aria-labelledby="dLabel" style="">
+                                                <li><a href="javascript:void(0);">Distribute to all ads </a></li>
+                                                <li><a href="javascript:void(0);">Distribute to other product within this ad </a> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        See more URL
+                                    </label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" ng-model="currentAd.see_more.url" placeholder="Enter the URL you're promote">
+                                    </div>
+                                    <div class="col-sm-2 text-right padL0">
+                                        <div class="dropdown">
+                                            <button class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-files-o"></i></button>
+                                            <ul class="dropdown-menu" aria-labelledby="dLabel" style="">
+                                                <li><a href="javascript:void(0);">Distribute to all ads </a></li>
+                                                <li><a href="javascript:void(0);">Distribute to other product within this ad </a> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">
+                                        See more Display URL
+                                    </label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" ng-model="currentAd.see_more.display_url" placeholder="Enter the link as you want people to see it">
+                                    </div>
+                                    <div class="col-sm-2 text-right padL0">
+                                        <div class="dropdown">
+                                            <button class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-files-o"></i></button>
+                                            <ul class="dropdown-menu" aria-labelledby="dLabel" style="">
+                                                <li><a href="javascript:void(0);">Distribute to all ads </a></li>
+                                                <li><a href="javascript:void(0);">Distribute to other product within this ad </a> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <div class="checkbox m-b-15 inline-block">
+                                            <label class="m-r-20 pad-l-25">
+                                                <input type="checkbox" ng-model="currentAd.facebook_order">
+                                                <i class="input-helper"></i>
+                                                Let Facebook to order products based on their performance
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <tabset>
+                                    <tab ng-repeat="p in currentAd.products" active="$last">
+                                        <tab-heading>{{ $index + 1 }}</tab-heading>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">
+                                                Headlines
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" ng-model="p.headline" placeholder="Enter the brief headline for what you're promoting">
+                                                <span class="btn btn-primary counter">35</span>
+                                            </div>
+                                            <div class="col-sm-2 text-right padL0">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-files-o"></i></button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dLabel" style="">
+                                                        <li><a href="javascript:void(0);">Distribute to all ads </a></li>
+                                                        <li><a href="javascript:void(0);">Distribute to other product within this ad </a> </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">
+                                                Description
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" ng-model="p.description" placeholder="Enter the description for what you're promote">
+                                                <span class="btn btn-primary counter">30</span>
+                                            </div>
+                                            <div class="col-sm-2 text-right padL0">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-files-o"></i></button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dLabel" style="">
+                                                        <li><a href="javascript:void(0);">Distribute to all ads </a></li>
+                                                        <li><a href="javascript:void(0);">Distribute to other product within this ad </a> </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 con1-0trol-label">
+                                                Destination URL
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" ng-model="p.description_url" placeholder="Enter the URL you want to promote">
+                                            </div>
+                                            <div class="col-sm-2 text-right padL0">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-files-o"></i></button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dLabel" style="">
+                                                        <li><a href="javascript:void(0);">Distribute to all ads </a></li>
+                                                        <li><a href="javascript:void(0);">Distribute to other product within this ad </a> </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">
+                                                Call to action
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <select class="form-control" ng-model="p.call_to_action">
+                                                    <option value="">No Button</option>
+                                                    <option value="SHOP_NOW">Shop Now</option>
+                                                    <option value="LEARN_MORE">Learn More</option>
+                                                    <option value="SIGN_UP">Sign Up</option>
+                                                    <option value="BOOK_NOW">Book Now</option>
+                                                    <option value="DOWNLOAD">Download</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-2 text-right padL0">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-files-o"></i></button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dLabel" style="">
+                                                        <li><a href="javascript:void(0);">Distribute to all ads </a></li>
+                                                        <li><a href="javascript:void(0);">Distribute to other product within this ad </a> </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">
+                                                Image
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <div flow-init="{singleFile:true}"
+                                                     flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+                                                     flow-files-submitted="$flow.upload()"
+                                                     flow-file-success="p.image_url = $message"
+                                                     flow-object="p.image">
+                                                    <span class="btn btn-primary" flow-btn><i class="fa fa-cloud-upload"></i> Upload Image</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2 padL0 text-right">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-files-o"></i></button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dLabel" style="">
+                                                        <li><a href="javascript:void(0);">Distribute to all ads </a></li>
+                                                        <li><a href="javascript:void(0);">Distribute to other product within this ad </a> </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <div class="col-sm-offset-6 col-sm-6 text-right">
+                                                <button type="button" class="btn btn-primary" ng-click="currentAd.products.splice($index, 1)"><i class="fa fa-times"></i> Remove Product</button>
+                                            </div>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                                <div class="form-group mb-0">
+                                    <div class="col-sm-offset-6 col-sm-6 text-right">
+                                        <button type="button" class="btn btn-primary" ng-click="newProductClicked(currentAd)">
+                                            <i class="fa fa-plus"></i> New Product
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 multiple-ad-wrapper" ng-repeat="ad in adData.multi_products_ads.ads">
+                        <div class="created-ad-wrapper">
+                            <div class="created-ad-head">
+                                <div class="sponsor-desc">
+                                    <img ng-src="{{ ad.profile_image_url }}" class="img-responsive" alt=""/>
+
+                                    <p>
+                                        <strong editable-text="ad.title">{{ ad.name || "Name" }}</strong>
+                                        <span editable-text="ad.sponsored">{{ ad.sponsored || "Sponsored" }}</span>
+                                        <a href="javascript:void(0);" class="btn btn-default pull-right"
+                                           style="margin-top: -23px;" ng-click="adSelected(p)"><i class="fa fa-pencil"></i> Edit Ad</a>
+                                    </p>
+                                </div>
+                                <p editable-text="ad.description">{{ ad.description || "Description" }}</p>
+                            </div>
+                            <div class="created-ad-body">
+                                <flex-slider class="carousel" flex-slide="p in ad.products track by $index" animation="slide" animation-loop="false" item-width="250" item-margin="20" control-nav="false">
+                                    <li class="slide">
+                                        <div flow-init="{singleFile:true}"
+                                             flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+                                             flow-files-submitted="$flow.upload()"
+                                             flow-file-success="p.image_url = $message"
+                                             flow-name="p.image">
+                                            <div class="product-body" ng-show="!$flow.files.length">
+                                                <img src="http://ahextechnologies.com/roi/images/samg-photo-ad.jpg"
+                                                     class="img-responsive" alt=""/>
+                                            </div>
+                                            <div class="product-body" ng-show="$flow.files.length">
+                                                <img flow-img="$flow.files[0]">
+                                            </div>
+                                            <div class="img-upload-wrapper rhs-img-upload">
+                                                <span class="btn btn-primary" ng-show="!$flow.files.length" flow-btn>Select image</span>
+                                                <span class="btn btn-info" ng-show="$flow.files.length" flow-btn>Change</span>
+                                                <span class="btn btn-danger" ng-show="$flow.files.length" ng-click="$flow.cancel()">Remove</span>
+                                            </div>
+                                        </div>
+                                        <p class="headline">{{ p.headline || 'Headline' }}</p>
+                                        <span class="description">{{ p.description || 'Description' }}</span>
+                                    </li>
+                                </flex-slider>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="ad-wrapper">
+                            <div class="create-ad">
+                                <a href="javascript:void(0);" ng-click="createAdClicked('multiple')"><i class="fa fa-plus-circle"></i></a>
+
+                                <p>Create Ad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div style="margin-top:20px;">
+        <button type="submit" class="btn btn-primary" ng-click="steps.step1 = true">Previous</button>
+        <button type="submit" ng-disabled="step2.$invalid" class="btn btn-primary pull-right"
+                ng-click="steps.step2 = true">Next
+        </button>
+    </div>
+</tab>

@@ -1,0 +1,24 @@
+<section class="tile">
+	<div class="tile-body p-0"> <div class="tabs-dark">
+		<div class="tab-content">
+			<div class="tab-pane active">
+				<div class="wrap-reset">
+					<ul class="nav nav-pills">
+						<li ng-class="{active: subpage == 'campaigns'}" heading="Campaigns"><a href="" ng-click="switchTab('campaigns')">Campaigns</a></li>
+						<li ng-class="{active: subpage == 'adsets'}" heading="Advert Sets"><a href="" ng-click="switchTab('adsets')">Advert Sets</a></li>
+						<li ng-class="{active: subpage == 'ads'}" heading="Ads"><a href="" ng-click="switchTab('ads')">Ads</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div class="tab-pane" ng-class="{active: subpage == 'campaigns'}" data-ng-include="'pages/statistics/campaigns.html'">
+						</div>
+						<div class="tab-pane" ng-class="{active: subpage == 'adsets'}" data-ng-include="'pages/statistics/adsets.html'">
+						</div>
+						<div class="tab-pane" ng-class="{active: subpage == 'ads'}" data-ng-include="'pages/statistics/ads.html'">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

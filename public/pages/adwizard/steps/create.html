@@ -1,0 +1,8 @@
+<section class="tile container-fluid main-wrapper createad-page" fullscreen="isFullscreen02" style="padding: 20px;">
+    <tabset class="tab-animation tab-container tab-wizard" justified="true" set-ng-animate="true"
+            ng-init="steps={step1:true, step2:false, step3:false}">
+        <div ng-include="'/pages/adwizard/steps/create/creative.html'" include-replace></div>
+        <div ng-include="'/pages/adwizard/steps/create/targeting.html'" include-replace></div>
+        <div ng-include="'/pages/adwizard/steps/create/campaign_settings.html'" include-replace></div>
+    </tabset>
+</section>

@@ -1,0 +1,182 @@
+<tab active="steps.step3" disabled="step2.$invalid" ng-controller="adWizardCreateCampaignSettingsController">
+
+    <tab-heading>
+        Campaign Settings
+        <span class="badge badge-default pull-right wizard-step">3</span>
+    </tab-heading>
+
+    <form name="step3" class="campaign-setting-wrapper" role="form">
+        <div class="row">
+            <div class="col-sm-10">
+
+                <div class="form-group clearfix">
+                    <div class="col-sm-4 text-right">
+                        <label for="">Conversion Pixels:</label>
+                    </div>
+                    <div class="col-sm-8 ">
+                        <select class="form-control" ng-model="campaignData.conversion_pixel">
+                            <option>Checkouts</option>
+                            <option>Checkouts</option>
+                            <option>Checkouts</option>
+                            <option>Checkouts</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <div class="col-sm-4 text-right">
+                        <label for="campaign_name">Campaign Name:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="campaign_name" ng-model="campaignData.campaign_name">
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <div class="col-sm-4 text-right">
+                        <label>Ad Set:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div><input type="radio" class="mr-5" id="ad_set_name_type_from_product_category" ng-model="campaignData.adset_name_type" value="AUTO"><label for="ad_set_name_type_from_product_category"> Create New ad select from product category</label></div>
+                        <div><input type="radio" class="mr-5" id="ad_set_name_type_manually" ng-model="campaignData.adset_name_type" value="MANUAL"><label for="ad_set_name_type_manually"> Define your ad set manually</label></div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input class="form-control mar-10" placeholder="Type name for new adset" ng-model="campaignData.adset_name">
+                            </div>
+                            <div class="col-sm-4">
+                                <span style="line-height: 52px;">{age}_{gender}</span>
+                            </div>
+                        </div>
+                        <p>Information about A/B test will be added to the end of adset name</p>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <div class="col-sm-4 text-right">
+                        <label for="adset_prefix">Adset Prefix (optional):</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="adset_prefix" ng-model="campaignData.adset_prefix">
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <div class="col-sm-4 text-right">
+                        <label for="adset_budget">Adset Budget:</label>
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="adset_budget" ng-model="campaignData.adset_budget">
+                    </div>
+                    <div class="col-sm-3 text-right">
+                        <div class="btn-group">
+                            <label class="btn btn-default" ng-model="campaignData.adset_budget_type" btn-radio="'DAILY'">Daily</label>
+                            <label class="btn btn-default" ng-model="campaignData.adset_budget_type" btn-radio="'LIFETIME'">Lifetime</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix schedule-wrapper">
+                    <div class="col-sm-4 text-right">
+                        <label>Schedule:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <tabset>
+                            <tab heading="Run Continuously Starting Today" select="campaignData.schedule.type = 'CONTINUE'">
+                                Run Continuously Starting Today
+                            </tab>
+                            <tab heading="Set Start and End Date" select="campaignData.schedule.type = 'START_END'">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Start Date" datepicker-popup="yyyy-MM-dd" ng-model="campaignData.schedule.start_date" is-open="start_date_opened" ng-click="start_date_opened = true" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="End Date" datepicker-popup="yyyy-MM-dd" ng-model="campaignData.schedule.end_date" is-open="end_date_opened" ng-click="end_date_opened = true" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </tab>
+                            <tab heading="Set Days of the Week" select="campaignData.schedule.type = 'DAYS_OF_WEEK'">
+                                <div class="row" ng-repeat="day_of_week in campaignData.schedule.days_of_week">
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <select class="form-control" ng-model="day_of_week.day">
+                                                <option value="0">Sunday</option>
+                                                <option value="1">Monday</option>
+                                                <option value="2">Tuesday</option>
+                                                <option value="3">Wednesday</option>
+                                                <option value="4">Thursday</option>
+                                                <option value="5">Friday</option>
+                                                <option value="6">Saturday</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" ng-model="days_of_week.start" placeholder="12:00PM">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" ng-model="days_of_week.end" placeholder="12:30PM">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <div class="form-group">
+                                            <a href="javascript:void(0);" ng-click="removeDayOfWeekScheduleClicked(day_of_week)">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="form-group">
+                                        <button class="btn-primary" ng-click="newDayOfWeekScheduleClicked()">Add New Schedule</button>
+                                    </div>
+                                </div>
+                            </tab>
+                        </tabset>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <div class="col-sm-4 text-right">
+                        <label for="campaign_optimize_for">Optimize For:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="campaign_optimize_for" ng-model="campaignData.optimize_for" ng-options="k as v for (k, v) in CAMPAIGN_OPTIMIZE_FORS"></select>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <div class="col-sm-4 text-right">
+                        <label for="campaign_bidding">Bidding:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="campaign_bidding" placeholder="$0.08" ng-model="campaignData.bidding">
+                        <span>Suggested bid: 0.50 - 1.25</span>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <div class="col-sm-4 text-right">
+                        <label for="campaign_end">Campaign End:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="campaign_end" ng-model="campaignData.campaign_end" ng-options="k as v for (k, v) in CAMPAIGN_ENDS">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div style="margin-top:20px;">
+            <button type="button" class="btn btn-primary" ng-click="steps.step2 = true">Previous</button>
+            <button type="button" ng-disabled="step3.$invalid" class="btn btn-success pull-right" ng-click="finish()">Finish</button>
+        </div>
+    </form>
+</tab>

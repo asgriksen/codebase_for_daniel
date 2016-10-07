@@ -1,0 +1,15 @@
+<section ng-include="'pages/layout/header.html'" id="header" class="{{main.settings.navbarHeaderColor}}"></section>
+	<div id="controls">
+			<aside ng-include="'pages/layout/nav.html'" id="sidebar" class="{{main.settings.sidebarColor}}" ng-class="{'aside-fixed':main.settings.asideFixed}"></aside>
+	</div>
+
+	<div class="view-container" ui-view-container>
+		<section id="content" autoscroll="false" style="margin-left:20px;margin-right:20px;">
+			<div class="alert alert-danger text-center" role="alert" ng-show="error != ''"><a href="#" class="close" data-dismiss="alert">&times;</a>{{ error }}</div>
+			<div class="alert alert-info text-center" role="alert" ng-show="message != ''"><a href="#" class="close" data-dismiss="alert">&times;</a>{{ message }}</div>
+			<div ui-view></div>
+		</section>
+	</div>
+</section>
+<section id="templates" data-ng-include="'pages/layout/templates/dialog-templates.html'">
+</section>

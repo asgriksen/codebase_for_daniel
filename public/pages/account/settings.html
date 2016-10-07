@@ -1,0 +1,48 @@
+<section class="tile tile-simple">
+  <div class="tile-body p-0"> <div class="tabs-dark">
+    <div class="tab-content">
+      <div class="tab-pane active">
+        <div class="wrap-reset">
+          <form name="form" class="profile-settings ng-pristine"> 
+            <div class="row"> 
+              <div class="form-group col-md-12 legend"><h4><strong>Personal</strong> Settings</h4> <p>Your personal account settings</p> 
+              </div>
+            </div> 
+            <div class="col-sm-6"> 
+              <div class="row"> 
+                <div class="form-group col-sm-12"> 
+                  <label for="namee">Name</label> 
+                  <input type="text" class="form-control" id="namee" ng-model="user.name" required> 
+                </div> 
+              </div> 
+              <div class="row"> 
+                <div class="form-group col-sm-12"> 
+                  <label for="email">E-mail</label> 
+                  <input type="email" class="form-control" id="email" ng-model="user.email" readonly="readonly" email> 
+                </div> 
+              </div>
+              <div class="row"> 
+                <div class="form-group col-sm-12"> 
+                  <label for="password">Password</label> 
+                  <input type="password" class="form-control" id="password" ng-model="user.password"> 
+                </div> 
+              </div>
+              <div class="row"> 
+                <div class="form-group col-sm-12"> 
+                  <label for="password1">Confirm password</label> 
+                  <input type="password" class="form-control" id="password1" ng-model="password" /> 
+                </div> 
+              </div>
+              <div class="row"> 
+                <div class="form-group col-sm-12">
+                  <button type="submit" class="btn btn-default" ng-click="onSave()"  ng-disabled='form.$invalid' >Save changes</button>
+                </div>
+              </div>
+            </div>
+            <div style="clear:both;"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> </div> <!-- /tile body --> </section>

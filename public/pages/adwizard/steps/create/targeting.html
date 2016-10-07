@@ -1,0 +1,565 @@
+<tab active="steps.step2" id="Targeting" disabled="step1.$invalid" ng-controller="adWizardCreateCampaignTargetingController">
+
+    <tab-heading>
+        Targeting
+        <span class="badge badge-default pull-right wizard-step">2</span>
+    </tab-heading>
+
+    <section class="Targeting-wrapper">
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified" id="TargetingTabs" role="tablist">
+            <li role="presentation">
+                <a href="#customers" aria-controls="customers" role="tab" data-toggle="tab" class="targets">
+                    <i class="fa fa-plus-circle"></i>
+                    <p>New Customers</p>
+                </a>
+
+            </li>
+            <li role="presentation">
+
+                <a href="#reengage" aria-controls="reengage" role="tab" data-toggle="tab" class="targets">
+                    <i class="fa fa-retweet"></i>
+                    <p>Reengage Customers</p>
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#group" aria-controls="group" role="tab" data-toggle="tab" class="targets">
+                    <i class="fa fa-group"></i>
+                    <p>Customer Group</p>
+                </a>
+
+            </li>
+            <li role="presentation">
+                <a href="#remarketing" aria-controls="remarketing" role="tab" data-toggle="tab" class="targets">
+                    <i class="fa fa-shopping-cart"></i>
+                    <p>Product Remarketing</p>
+                </a>
+
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane" id="customers">
+
+                <div class="row text-center">
+                    <div class="col-xs-5 col-xs-offset-3">
+                        <select class="form-control select-predefined mb-20">
+                            <option>Select Predefined Targeting</option>
+                            <option>Select Predefined Targeting</option>
+                            <option>Select Predefined Targeting</option>
+                            <option>Select Predefined Targeting</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-1">
+                        <a href="javascript:void(0);" class="btn btn-default btn-sm create-target">Create Targeting</a>
+                    </div>
+                </div>
+
+                <hr/>
+                <section class="target-set-wrapper form-horizontal">
+                    <div class="row">
+                        <form class="form-horizontal" role="form">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input01">Locations</label>
+                                    <div class="col-sm-10">
+                                        <div class="row location">
+                                            <div class="col-sm-8">
+                                                <input type="text" ng-model="includeLocation" typeahead="geolocation as geolocation.name for geolocation in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" ng-model="includeLocation.radius" ng-if="includeLocation.type != 'country'">
+                                                    <option value="">No Radius</option>
+                                                    <option value="10">10 miles</option>
+                                                    <option value="25">25 miles</option>
+                                                    <option value="50">50 miles</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-1 text-right">
+                                                <a class="btn btn-default" ng-click="addLocationClicked(true)">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="row location" ng-repeat="location in targetingData.locations.includes track by $index">
+                                            <div class="col-sm-8">
+                                                <input type="text" ng-model="targetingData.locations.includes[$index]" typeahead="geolocation as geolocation.name for geolocation in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" ng-model="targetingData.locations.includes[$index].radius" ng-if="location.type != 'country'">
+                                                    <option value="">No Radius</option>
+                                                    <option value="10">10 miles</option>
+                                                    <option value="25">25 miles</option>
+                                                    <option value="50">50 miles</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-1 text-right">
+                                                <a class="btn btn-default">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input01">Excluded Locations</label>
+                                    <div class="col-sm-10">
+                                        <div class="row excluded-location">
+                                            <div class="col-sm-8">
+                                                <input type="text" ng-model="excludeLocation" typeahead="geolocation as geolocation.name for geolocation in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" ng-model="excludeLocation.radius" ng-if="excludeLocation.type != 'country'">
+                                                    <option value="">No Radius</option>
+                                                    <option value="10">10 miles</option>
+                                                    <option value="25">25 miles</option>
+                                                    <option value="50">50 miles</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-1 text-right">
+                                                <a class="btn btn-default" ng-click="addLocationClicked(false)">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="row excluded-location" ng-repeat="location in targetingData.locations.excludes track by $index">
+                                            <div class="col-sm-8">
+                                                <input type="text" ng-model="targetingData.locations.excludes[$index]" typeahead="geolocation as geolocation.name for geolocation in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" ng-model="targetingData.locations.excludes[$index].radius" ng-if="location.type != 'country'">
+                                                    <option value="">No Radius</option>
+                                                    <option value="10">10 miles</option>
+                                                    <option value="25">25 miles</option>
+                                                    <option value="50">50 miles</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-1 text-right">
+                                                <a class="btn btn-default">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Age</label>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col-sm-2 padR0">
+                                                <select class="form-control" ng-model="targetingData.age.from">
+                                                    <option>30</option>
+                                                    <option>40</option>
+                                                    <option>50</option>
+                                                    <option>60+</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-sm-1 text-center lh32">to </div>
+                                            <div class="col-sm-2 padL0">
+                                                <select class="form-control" ng-model="targetingData.age.to">
+                                                    <option>30</option>
+                                                    <option>40</option>
+                                                    <option>50</option>
+                                                    <option>60+</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-sm-3 padRL0 lh32">
+                                                <input type="checkbox" ng-model="targetingData.age.grouping"> Group Ages Every
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <select class="form-control" ng-model="targetingData.age.grouping_period">
+                                                    <option>5 years</option>
+                                                    <option>5 years</option>
+                                                    <option>5 years</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1 text-center">
+                                        <a class="btn btn-default fa fa-angle-right"></a>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Gender</label>
+                                    <div class="col-sm-10">
+                                        <div class="btn-group">
+                                            <label class="btn btn-default" ng-model="targetingData.gender" btn-radio="'ALL'">All</label>
+                                            <label class="btn btn-default" ng-model="targetingData.gender" btn-radio="'MEN'">Men</label>
+                                            <label class="btn btn-default" ng-model="targetingData.gender" btn-radio="'WOMEN'">Women</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input01">Custom Audiences</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="input01" class="form-control" Placeholder="Search">
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <a href="javascript:void(0);" class="fa fa-refresh"></a>
+                                    </div>
+                                    <div class="col-sm-1 text-center">
+                                        <a class="btn btn-default fa fa-angle-right"></a>
+                                    </div>
+                                </div>
+
+
+                                <accordion close-others="oneAtATime">
+                                    <accordion-group heading="Interets" is-open="status.isFirstOpen">
+                                        <accordion-heading>
+                                            <div class="row">
+                                                <div class="col-sm-4 padR0">
+                                                    Data file custom audience
+                                                </div>
+                                                <div class="col-sm-2 padRL0">
+                                                    <span class="red ">  (0)</span>
+                                                </div>
+                                                <div class="col-sm-2 padRL0">
+                                                    Size
+                                                </div>
+                                                <div class="col-sm-4 padRL0">
+                                                    <input type="checkbox" value="" class="mr-10"> Include <span class="red mr-10 ml-5">  0</span>
+                                                    <input type="checkbox" value="" class="mr-10"> Exclude <span class="red mr-10 ml-5">  0</span>
+                                                </div>
+                                            </div>
+                                        </accordion-heading>
+                                        Currently there are no custom audience.
+                                    </accordion-group>
+                                    <accordion-group heading="Behaviors">
+                                        <accordion-heading>
+                                            <div class="row">
+                                                <div class="col-sm-4 padR0">
+                                                    Lookalike audience
+                                                </div>
+                                                <div class="col-sm-2 padRL0">
+                                                    <span class="red">  (0)</span>
+                                                </div>
+                                                <div class="col-sm-2 padRL0">
+                                                    Size
+                                                </div>
+                                                <div class="col-sm-4 padRL0">
+                                                    <input type="checkbox" value="" class="mr-10"> Include <span class="red mr-10 ml-5">  1</span>
+                                                    <input type="checkbox" value="" class="mr-10"> Exclude <span class="red mr-10 ml-5">  0</span>
+                                                </div>
+                                            </div>
+                                        </accordion-heading>
+                                        dsfdsffdsfds
+                                    </accordion-group>
+                                    <accordion-group is-open="status.open">
+                                        <accordion-heading>
+                                            <div class="row">
+                                                <div class="col-sm-4 padR0">
+                                                    Custom audience from your web site
+                                                </div>
+                                                <div class="col-sm-2 padRL0">
+                                                    <span class="red">  (0)</span>
+                                                </div>
+                                                <div class="col-sm-2 padRL0">
+                                                    Size
+                                                </div>
+                                                <div class="col-sm-4 padRL0">
+                                                    <input type="checkbox" value="" class="mr-10"> Include <span class="red mr-10 ml-5">  0</span>
+                                                    <input type="checkbox" value="" class="mr-10"> Exclude <span class="red mr-10 ml-5">  0</span>
+                                                </div>
+                                            </div>
+                                        </accordion-heading>
+
+                                        dsfdsfdsfdsfds
+                                    </accordion-group>
+                                </accordion>
+
+                                <legend style="margin-top:20px;">
+                                    <div class="row">
+                                        <div class="col-sm-8 mb-10">
+                                            Advanced Targeting
+                                        </div>
+                                        <div class="col-sm-4 mb-10">
+                                            <select class="form-control pull-right">
+                                                <option>More Demographics</option>
+                                                <option>More Demographics</option>
+                                                <option>More Demographics</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </legend>
+                                <div class="clearboth"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input01">Interests</label>
+                                    <div class="col-sm-6">
+                                        <ui-select multiple ng-model="targetingData.interests" ng-disabled="disabled">
+                                            <ui-select-match placeholder="Select interests...">{{ $item.name }}</ui-select-match>
+                                            <ui-select-choices repeat="interest in interests | filter: {name: $select.search}">
+                                                <div ng-bind-html="interest.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div class="col-sm-1 text-center">
+                                        <a href="javascript:void(0);" class="fa fa-plus"></a>
+                                    </div>
+                                    <div class="col-sm-2 text-center">
+                                        <div class="btn-group btn-group-justified mb-10">
+                                            <a role="button" class="btn btn-default">AND</a>
+
+                                            <a role="button" class="btn btn-default">OR</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1 text-center">
+                                        <a class="btn btn-default fa fa-angle-right"></a>
+                                    </div>
+                                </div>
+                                <hr/>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input01">Behaviors</label>
+                                    <div class="col-sm-9">
+                                        <ui-select multiple ng-model="targetingData.behaviors" ng-disabled="disabled">
+                                            <ui-select-match placeholder="Select behaviors...">{{ $item.name }}</ui-select-match>
+                                            <ui-select-choices repeat="behavior in behaviors | filter: {name: $select.search}">
+                                                <div ng-bind-html="behavior.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div class="col-sm-1 text-center">
+                                        <a class="btn btn-default fa fa-angle-right"></a>
+                                    </div>
+                                </div>
+                                <hr/>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input01">Connections</label>
+                                    <div class="col-sm-9">
+                                        <div class="btn-group">
+                                            <label class="btn btn-default" ng-model="targetingData.connections.type" btn-radio="'ALL'">All</label>
+                                            <label class="btn btn-default" ng-model="targetingData.connections.type" btn-radio="'ADV'">Advanced</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ml-0" ng-show="targetingData.connections.type == 'ADV'">
+                                    <div class="col-sm-9 col-sm-offset-2 padL0">
+                                        <label class="control-label mb-5" for="input01">Include people who are connected to <a href="javascript:void(0);" class="fa fa-question-circle"></a></label>
+                                        <ui-select multiple ng-model="targetingData.connections.includes" ng-disabled="disabled">
+                                            <ui-select-match placeholder="Add a page, app, or event">{{ $item.name }}</ui-select-match>
+                                            <ui-select-choices repeat="connection in connectionObjects | filter: {name: $select.search}">
+                                                <div ng-bind-html="connection.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+
+                                    <div class="col-sm-1 text-center">
+                                        <label class="control-label mb-5 block" for="input01">&nbsp;</label>
+                                        <a class="btn btn-default fa fa-angle-right"></a>
+                                    </div>
+                                </div>
+                                <div class="form-group ml-0" ng-show="targetingData.connections.type == 'ADV'">
+                                    <div class="col-sm-9 col-sm-offset-2 padL0">
+                                        <label class="control-label mb-5" for="input01">Include friends of people who are connected to <a href="javascript:void(0);" class="fa fa-question-circle"></a></label>
+                                        <ui-select multiple ng-model="targetingData.connections.friends" ng-disabled="disabled">
+                                            <ui-select-match placeholder="Add a page, app, or event">{{ $item.name }}</ui-select-match>
+                                            <ui-select-choices repeat="connection in connectionObjects | filter: {name: $select.search}">
+                                                <div ng-bind-html="connection.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div class="col-sm-1 text-center">
+                                        <label class="control-label mb-5 block" for="input01">&nbsp;</label>
+                                        <a class="btn btn-default fa fa-angle-right"></a>
+                                    </div>
+                                </div>
+                                <div class="form-group ml-0" ng-show="targetingData.connections.type == 'ADV'">
+                                    <div class="col-sm-9 col-sm-offset-2 padL0">
+                                        <label class="control-label mb-5" for="input01">Exclude people who are connected to <a href="javascript:void(0);" class="fa fa-question-circle"></a></label>
+                                        <ui-select multiple ng-model="targetingData.connections.excludes" ng-disabled="disabled">
+                                            <ui-select-match placeholder="Add a page, app, or event">{{ $item.name }}</ui-select-match>
+                                            <ui-select-choices repeat="connection in connectionObjects | filter: {name: $select.search}">
+                                                <div ng-bind-html="connection.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div class="col-sm-1 text-center">
+                                        <label class="control-label mb-5 block" for="input01">&nbsp;</label>
+                                        <a class="btn btn-default fa fa-angle-right"></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div id="abTesting">
+                                    <accordion close-others="">
+                                        <accordion-group heading="Interests" is-open="status.isFirstOpen">
+                                            <accordion-heading is-open="status.open">
+                                                <input type="checkbox" value="" class="mr-10"> Use Targeting A/B Evaluation
+                                            </accordion-heading>
+                                            <!--   <div role="button" class="btn btn-default btn-block text-left">Age <a class="fa fa-times pull-right-aligned"></a></div>
+                                               <div role="button" class="btn btn-default btn-block text-left">Gender <a class="fa fa-times pull-right-aligned"></a></div> -->
+                                            <accordion-group is-open="status.open">
+                                                <accordion-heading>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            Interests
+                                                        </div>
+                                                        <div class="col-sm-6 text-right">
+                                                            Size
+                                                        </div>
+                                                    </div>
+                                                </accordion-heading>
+                                                <div role="button" class="btn btn-default btn-block text-left"> Boating <a class="fa fa-times pull-right-aligned fa-text">125,000 </a></div>
+                                                <div role="button" class="btn btn-default btn-block text-left"> Surfing <a class="fa fa-times pull-right-aligned fa-text">578,659 </a></div>
+                                                <div role="button" class="btn btn-default btn-block text-left"> Fishing <a class="fa fa-times pull-right-aligned fa-text">884,659 </a></div>
+
+                                            </accordion-group>
+                                            <accordion-group>
+                                                <accordion-heading>
+                                                    Behaviors
+                                                </accordion-heading>
+                                                <div role="button" class="btn btn-default btn-block text-left"> Boating <a class="fa fa-times pull-right-aligned fa-text">125,000 </a></div>
+                                                <div role="button" class="btn btn-default btn-block text-left"> Surfing <a class="fa fa-times pull-right-aligned fa-text">578,659 </a></div>
+                                                <div role="button" class="btn btn-default btn-block text-left"> Fishing <a class="fa fa-times pull-right-aligned fa-text">884,659 </a></div>
+
+                                            </accordion-group>
+                                        </accordion-group>
+
+
+
+                                        <accordion-group>
+                                            <accordion-heading>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        Total Rerach
+                                                    </div>
+                                                    <div class="col-sm-6 text-right">
+                                                        110,554,654 users
+                                                    </div>
+
+                                                </div>
+                                            </accordion-heading>
+                                            sdffdsfds
+                                            <p class="ab-testing-footer">
+                                                Total Combinations <span class="pull-right">58</span>
+                                            </p>
+                                        </accordion-group>
+                                    </accordion>
+                                </div>
+                            </div>
+                    </div>
+                </section>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="reengage">
+                <div class="row text-center">
+                    <div class="col-xs-5 centered">
+                        <select class="form-control select-predefined mb-20">
+                            <option>Select Predefined Targeting</option>
+                            <option>Select Predefined Targeting</option>
+                            <option>Select Predefined Targeting</option>
+                            <option>Select Predefined Targeting</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-1">
+                        <a href="javascript:void(0);" class="btn btn-default btn-sm">Create Targeting</a>
+                    </div>
+                </div>
+
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="group">
+
+                <div class="row text-center">
+
+                    <div class="col-xs-5 centered">
+                        <select class="form-control select-predefined mb-20">
+                            <option>Select Predefined Targeting</option>
+                            <option>Select Predefined Targeting</option>
+                            <option>Select Predefined Targeting</option>
+                            <option>Select Predefined Targeting</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-1">
+                        <a href="javascript:void(0);" class="btn btn-default btn-sm">Create Targeting</a>
+                    </div>
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="remarketing">
+
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label class="col-sm-12 mb-20">
+                                Remarket people who visited your product in the last <input type="checkbox" value="" class="mr-10 ml-10"> Days
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Country</label>
+                            <div class="col-sm-8">
+                                <select class="form-control">
+                                    <option>Country is not required</option>
+                                    <option>Country is not required</option>
+                                    <option>Country is not required</option>
+                                    <option>Country is not required</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <div class="col-xs-12 mb-20">
+                                <input type="checkbox" value="" class="mr-10"> Exclude people who recently purchased
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 mb-20">
+                                <select class="form-control">
+                                    <option>LIST OF CHECKOUT PIXELS</option>
+                                    <option>Country is not required</option>
+                                    <option>Country is not required</option>
+                                    <option>Country is not required</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">In the last</label>
+                            <div class="col-sm-8">
+                                <select class="form-control">
+                                    <option>6 Months</option>
+                                    <option>12 Months</option>
+                                    <option>18 Months</option>
+                                    <option>24 Months</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            $('#TargetingTabs a').click(function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            });
+            $('.create-target').click(function () {
+                $('.target-set-wrapper').show();
+            });
+        </script>
+
+    </section>
+    <div style="margin-top:20px;">
+        <button type="submit" class="btn btn-primary" ng-click="steps.step1 = true">Previous</button>
+        <button type="submit" ng-disabled="step3.$invalid" class="btn btn-primary pull-right" ng-click="steps.step3 = true">Next</button>
+    </div>
+    </form>
+</tab>

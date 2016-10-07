@@ -1,0 +1,85 @@
+<div id="sidebar-wrap" ng-controller="layoutNavController">
+  <accordion close-others="oneAtTime" slimscroll="{height: '100%'}">
+
+    <accordion-group is-open="status.isFirstOpen" ng-class="{'open': status.isFirstOpen, 'closed': !status.isFirstOpen}">
+      <accordion-heading>
+        Navigation <i class="fa" ng-class="{'fa-angle-up': status.isFirstOpen, 'fa-angle-down': !status.isFirstOpen}"></i>
+      </accordion-heading>
+      <ul id="navigation" nav-collapse ripple>
+        <li ui-sref-active="active"><a ui-sref="statistics"><i class="glyphicon glyphicon-stats"></i> <span>Statistics</span></a></li>
+        <li ui-sref-active="active"><a ui-sref="adwizard" ><i class="glyphicon glyphicon-plus"></i> <span>Create Ad</span> </a></li>
+        <li ui-sref-active="active"><a ui-sref="rules"><fa name="gears"></fa> <span>Automatic Rules</span></a></li>
+        <li ui-sref-active="active"><a ui-sref="app.audience"><fa name="group"></fa> <span>Custom Audience</span></a></li>
+      </ul>
+    </accordion-group>
+
+    <accordion-group is-open="status.isSecondOpen" class="charts" ng-class="{'open': status.isSecondOpen, 'closed': !status.isSecondOpen}">
+      <accordion-heading>
+        Orders Summary <i class="fa" ng-class="{'fa-angle-up': status.isSecondOpen, 'fa-angle-down': !status.isSecondOpen}"></i>
+      </accordion-heading>
+
+      <div class="summary"> <!--ng-controller="SparklineCtrl" -->
+
+        <div class="media">
+          <a class="pull-right" href="#">
+            <span sparkline data="navChart1.data" options="navChart1.options"></span>
+          </a>
+          <div class="media-body">
+            This week sales
+            <h4 class="media-heading">26, 149</h4>
+          </div>
+        </div>
+
+        <div class="media">
+          <a class="pull-right" href="#">
+            <span sparkline data="navChart2.data" options="navChart2.options"></span>
+          </a>
+          <div class="media-body">
+            This week balance
+            <h4 class="media-heading">318, 651</h4>
+          </div>
+        </div>
+
+      </div>
+
+    </accordion-group>
+
+    <accordion-group is-open="status.isThirdOpen" class="settings" ng-class="{'open': status.isThirdOpen, 'closed': !status.isThirdOpen}">
+      <accordion-heading>
+        General Settings <i class="fa" ng-class="{'fa-angle-up': status.isThirdOpen, 'fa-angle-down': !status.isThirdOpen}"></i>
+      </accordion-heading>
+
+      <div class="form-group">
+        <div class="row">
+          <label class="col-xs-8 control-label">Switch ON</label>
+          <div class="col-xs-4 control-label">
+            <div class="onoffswitch greensea">
+              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-on" checked="">
+              <label class="onoffswitch-label" for="switch-on">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <label class="col-xs-8 control-label">Switch OFF</label>
+          <div class="col-xs-4 control-label">
+            <div class="onoffswitch greensea">
+              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-off">
+              <label class="onoffswitch-label" for="switch-off">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </accordion-group>
+
+  </accordion>
+</div>

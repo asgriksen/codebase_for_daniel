@@ -1,0 +1,36 @@
+<section class="tile">
+  <div class="tile-header dvd dvd-btm">
+    <h1 class="custom-font">Select <strong>Ad Accounts </strong> to add</h1>
+    <ul class="controls">
+      <li class="remove"><a role="button" tabindex="0" class="tile-close" ng-click="cancel()"><i class="fa fa-times"></i></a></li>
+    </ul>
+  </div>
+  <!-- /tile header -->
+  <!-- tile body -->
+  <div class="tile-body">
+    <table id="table" class="table table-custom dt-responsive no-footer dtr-inline collapsed">
+      <thead>
+        <tr>
+          <th style="width:150px;" class="text-left">Account #</th>
+          <th>Account name</th>
+          <th style="width:80px;">Select</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="account in accounts">
+          <td>{{account.account_id}}</td>
+          <td>{{account.name}}</td>
+          <td><input type="checkbox" class="onoffswitch-checkbox" ng-model="account.is_selected" ui-switch class="js_switch-primary" ng-disabled="exist(account.account_id)" /></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <button class="btn btn-primary pull-right" ng-click="ok()">Add</button>
+        <!-- <button class="btn btn-danger pull-right" ng-click="cancel()">Close</button> -->
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+  </div>
+  <!-- /tile body -->
+</section>

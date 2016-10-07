@@ -1,0 +1,304 @@
+<header class="clearfix">
+
+    <!-- Branding -->
+    <div class="branding {{main.settings.brandingColor}}">
+        <a class="brand" ui-sref="app.dashboard">
+            <span><strong>ROI</strong>Stats</span>
+        </a>
+        <a href="javascript:;" class="offcanvas-toggle visible-xs-inline" offcanvas-sidebar><i
+                class="fa fa-bars"></i></a>
+    </div>
+    <!-- Branding end -->
+
+    <!-- Right-side navigation -->
+    <ul class="nav-right pull-right list-inline">
+        <li class="dropdown users" dropdown on-toggle="toggled(open)">
+            <a href class="dropdown-toggle" dropdown-toggle>
+                <fa name="magic"></fa>
+            </a>
+
+            <div class="dropdown-menu pull-right with-arrow panel panel-default animated littleFadeInUp">
+                <div class="panel-heading">
+                    You have <strong>2</strong> requests
+                </div>
+                <table class="table mb-0 create-update-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Condition</th>
+                        <th>Action</th>
+                        <th>Layer</th>
+                        <th>Subject</th>
+                        <th>Items</th>
+                        <th>Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="active">
+                        <td>Ad1</td>
+                        <td>CPT > 20</td>
+                        <td>Pause</td>
+                        <td>Ad</td>
+                        <td>Pause</td>
+                        <td>Ad#1</td>
+                        <td>June 5 2015 - 12:45PM</td>
+                    </tr>
+                    <tr>
+                        <td>Ad1</td>
+                        <td>CPT > 20</td>
+                        <td>Pause</td>
+                        <td>Ad</td>
+                        <td>Pause</td>
+                        <td>Ad#1</td>
+                        <td>June 5 2015 - 12:45PM</td>
+                    </tr>
+                    <tr class="success">
+                        <td>Ad1</td>
+                        <td>CPT > 20</td>
+                        <td>Pause</td>
+                        <td>Ad</td>
+                        <td>Pause</td>
+                        <td>Ad#1</td>
+                        <td>June 5 2015 - 12:45PM</td>
+                    </tr>
+                    <tr>
+                        <td>Ad1</td>
+                        <td>CPT > 20</td>
+                        <td>Pause</td>
+                        <td>Ad</td>
+                        <td>Pause</td>
+                        <td>Ad#1</td>
+                        <td>June 5 2015 - 12:45PM</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </li>
+
+        <li class="dropdown users" dropdown on-toggle="toggled(open)">
+            <a href class="dropdown-toggle" dropdown-toggle>
+                <fa name="flag"></fa>
+            </a>
+
+            <div class="dropdown-menu pull-right with-arrow panel panel-default animated littleFadeInUp">
+                <div class="panel-heading">
+                    You have <strong>2</strong> requests
+                </div>
+                <div style="overflow-y: scroll; max-height: 450px;">
+                    <h3>Create</h3>
+                    <table class="table mb-0 create-update-table">
+                        <thead>
+                        <tr>
+                            <th width="280px;">Name</th>
+                            <th width="56px;">State</th>
+                            <th width="150px;">Progress</th>
+                            <th width="160px">Total/Processed/Error</th>
+                            <th width="130px">Start Time</th>
+                            <th width="150px;">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="active">
+                            <td>Create Ads for campaign "Campaign #1"</td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td>
+                                <progressbar class="progress-striped active not-rounded" value="50" type="dutch">
+                                    <b>50%</b></progressbar>
+                            </td>
+                            <td>6/6/0</td>
+                            <td>5 min ago - Jun 5 2015 - 12:30pm</td>
+                            <td>
+                                <i class="fa fa-search btn btn-default"></i>
+                                <i class="fa fa-times btn btn-default"></i>
+                                <i class="fa fa-refresh btn btn-default"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Create Ads for campaign "Campaign #1"</td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td>
+                                <progressbar class="progress-striped active not-rounded" value="50" type="dutch">
+                                    <b>50%</b></progressbar>
+                            </td>
+                            <td>6/6/0</td>
+                            <td>5 min ago - Jun 5 2015 - 12:30pm</td>
+                            <td>
+                                <i class="fa fa-search btn btn-default"></i>
+                                <i class="fa fa-times btn btn-default"></i>
+                                <i class="fa fa-refresh btn btn-default"></i>
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td>Create Ads for campaign "Campaign #1"</td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td>
+                                <progressbar class="progress-striped active not-rounded" value="50" type="dutch">
+                                    <b>50%</b></progressbar>
+                            </td>
+                            <td>6/6/0</td>
+                            <td>5 min ago - Jun 5 2015 - 12:30pm</td>
+                            <td>
+                                <i class="fa fa-search btn btn-default"></i>
+                                <i class="fa fa-times btn btn-default"></i>
+                                <i class="fa fa-refresh btn btn-default"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Create Ads for campaign "Campaign #1"</td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td>
+                                <progressbar class="progress-striped active not-rounded" value="50" type="dutch">
+                                    <b>50%</b></progressbar>
+                            </td>
+                            <td>6/6/0</td>
+                            <td>5 min ago - Jun 5 2015 - 12:30pm</td>
+                            <td>
+                                <i class="fa fa-search btn btn-default"></i>
+                                <i class="fa fa-times btn btn-default"></i>
+                                <i class="fa fa-refresh btn btn-default"></i>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                    <h3>Update or Delete</h3>
+                    <table class="table mb-0 create-update-table">
+                        <thead>
+                        <tr>
+                            <th width="150px;">Name</th>
+                            <th width="40px;">State</th>
+                            <th width="130px;">Progress</th>
+                            <th>Total/Processed/Error</th>
+                            <th width="130px">Start Time</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="active">
+                            <td>Create Ads for campaign "Campaign #1"</td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td>
+                                <progressbar class="progress-striped active not-rounded" value="50" type="dutch">
+                                    <b>50%</b></progressbar>
+                            </td>
+                            <td>6/6/0</td>
+                            <td>5 min ago - Jun 5 2015 - 12:30pm</td>
+                            <td>
+                                <i class="fa fa-search btn btn-default"></i>
+                                <i class="fa fa-times btn btn-default"></i>
+                                <i class="fa fa-refresh btn btn-default"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Create Ads for campaign "Campaign #1"</td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td>
+                                <progressbar class="progress-striped active not-rounded" value="50" type="dutch">
+                                    <b>50%</b></progressbar>
+                            </td>
+                            <td>6/6/0</td>
+                            <td>5 min ago - Jun 5 2015 - 12:30pm</td>
+                            <td>
+                                <i class="fa fa-search btn btn-default"></i>
+                                <i class="fa fa-times btn btn-default"></i>
+                                <i class="fa fa-refresh btn btn-default"></i>
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td>Create Ads for campaign "Campaign #1"</td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td>
+                                <progressbar class="progress-striped active not-rounded" value="50" type="dutch">
+                                    <b>50%</b></progressbar>
+                            </td>
+                            <td>6/6/0</td>
+                            <td>5 min ago - Jun 5 2015 - 12:30pm</td>
+                            <td>
+                                <i class="fa fa-search btn btn-default"></i>
+                                <i class="fa fa-times btn btn-default"></i>
+                                <i class="fa fa-refresh btn btn-default"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Create Ads for campaign "Campaign #1"</td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td>
+                                <progressbar class="progress-striped active not-rounded" value="50" type="dutch">
+                                    <b>50%</b></progressbar>
+                            </td>
+                            <td>6/6/0</td>
+                            <td>5 min ago - Jun 5 2015 - 12:30pm</td>
+                            <td>
+                                <i class="fa fa-search btn btn-default"></i>
+                                <i class="fa fa-times btn btn-default"></i>
+                                <i class="fa fa-refresh btn btn-default"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </li>
+
+        <!--<li class="dropdown nav-profile" dropdown on-toggle="toggled(open)">-->
+            <!--<a href class="dropdown-toggle" dropdown-toggle>-->
+                <!--<img src="images/profile-photo.jpg" alt="" class="img-circle size-30x30">-->
+                <!--<span>{{ currentUser.name }} <fa name="angle-down"></fa></span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu dropdown-menu-right animated littleFadeInRight left-50">-->
+                <!--<li>-->
+                    <!--<a ui-sref="accounts">-->
+                        <!--<fa name="user"></fa>-->
+                        <!--Accounts-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a ui-sref="settings">-->
+                        <!--<fa name="cog"></fa>-->
+                        <!--Settings-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li>-->
+                    <!--<a href="/logout">-->
+                        <!--<fa name="sign-out"></fa>-->
+                        <!--Logout-->
+                    <!--</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</li>-->
+        <li class="dropdown nav-profile" dropdown="" on-toggle="toggled(open)">
+            <a href="" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                <img src="images/profile-photo.jpg" alt="" class="img-circle size-30x30">
+                <span>{{ currentUser.name }} <i class="fa fa-angle-down" name="angle-down"></i></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li>
+                    <a ui-sref="settings">
+                        <i class="fa fa-cog" name="cog"></i>Settings
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="label bg-lightred pull-right">new</span>
+                        <i class="fa fa-check" name="check"></i>Tasks
+                    </a>
+                </li>
+
+                <li class="divider"></li>
+                <li>
+                    <a ui-sref="accounts" href="#/app/accountlist">
+                        <i class="fa fa-lock" name="lock"></i>Account List
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <i class="fa fa-sign-out" name="sign-out"></i>Logout
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- Right-side navigation end -->
+</header>
